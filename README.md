@@ -1,4 +1,4 @@
-# ecommerce
+# individual 
 
 A new Flutter project.
 
