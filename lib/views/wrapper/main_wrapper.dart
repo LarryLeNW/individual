@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 class MainWrapper extends StatefulWidget {
-  const MainWrapper({
-    required this.navigationShell,
-    super.key,
-  });
+  const MainWrapper({required this.navigationShell, super.key});
   final StatefulNavigationShell navigationShell;
 
   @override
@@ -31,12 +28,12 @@ class _MainWrapperState extends State<MainWrapper> {
         height: double.infinity,
         child: widget.navigationShell,
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.push(context.namedLocation('Player'));
-          },
-          backgroundColor: Colors.deepPurpleAccent,
-          child: const Icon(Icons.play_arrow)),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       context.push(context.namedLocation('Player'));
+      //     },
+      //     backgroundColor: Colors.deepPurpleAccent,
+      //     child: const Icon(Icons.play_arrow)),
       bottomNavigationBar: SlidingClippedNavBar(
         backgroundColor: Colors.white,
         onButtonPressed: (index) {
@@ -49,14 +46,8 @@ class _MainWrapperState extends State<MainWrapper> {
         activeColor: Colors.black,
         selectedIndex: selectedIndex,
         barItems: [
-          BarItem(
-            icon: Icons.home,
-            title: 'Home',
-          ),
-          BarItem(
-            icon: Icons.settings,
-            title: 'Settings',
-          ),
+          BarItem(icon: Icons.home, title: 'Home'),
+          BarItem(icon: Icons.settings, title: 'Settings'),
         ],
       ),
     );

@@ -20,7 +20,9 @@ dev_dependencies:
     cupertino_icons: ^1.0.2
     go_router: ^10.1.2
     sliding_clipped_nav_bar: ^3.1.0+4
-
+    just_audio: ^0.9.37
+    rxdart: ^0.27.7
+    audio_video_progress_bar: ^2.0.2
     flutter_lints: ^5.0.0
 
 flutter:

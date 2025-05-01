@@ -1,8 +1,8 @@
+import 'package:ecommerce/views/now_playing/playing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '/views/home/home_view.dart';
 import '/views/home/sub_home_view.dart';
-import '/views/player/player_view.dart';
 import '/views/settings/settings_view.dart';
 import '/views/settings/sub_setting_view.dart';
 import '/views/wrapper/main_wrapper.dart';
@@ -19,6 +19,9 @@ class AppNavigation {
   );
   static final _shellNavigatorSettings = GlobalKey<NavigatorState>(
     debugLabel: 'shellSettings',
+  );
+  static final _shellNavigatorPlaying = GlobalKey<NavigatorState>(
+    debugLabel: 'shellPlaying',
   );
 
   // GoRouter configuration
@@ -45,19 +48,10 @@ class AppNavigation {
                         const HomeView(),
                 routes: [
                   GoRoute(
-                    path: 'subHome',
-                    name: 'subHome',
-                    pageBuilder:
-                        (context, state) => CustomTransitionPage<void>(
-                          key: state.pageKey,
-                          child: const SubHomeView(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) =>
-                                  FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ),
-                        ),
+                    path: 'nowPlaying',
+                    name: "Playing",
+                    builder:
+                        (context, state) => NowPlayingPage(key: state.pageKey),
                   ),
                 ],
               ),
@@ -96,14 +90,6 @@ class AppNavigation {
             ],
           ),
         ],
-      ),
-
-      /// Player
-      GoRoute(
-        parentNavigatorKey: _rootNavigatorKey,
-        path: '/player',
-        name: "Player",
-        builder: (context, state) => PlayerView(key: state.pageKey),
       ),
     ],
   );
