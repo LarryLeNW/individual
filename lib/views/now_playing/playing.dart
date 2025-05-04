@@ -1,9 +1,9 @@
-import 'package:ecommerce/views/now_playing/audio_player_manager.dart';
+import 'package:larryle/views/now_playing/audio_player_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:ecommerce/data/models/song.model.dart';
+import 'package:larryle/data/models/song.model.dart';
 
 class NowPlayingPage extends StatefulWidget {
   const NowPlayingPage({super.key});
@@ -23,11 +23,6 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
         GoRouter.of(context).routerDelegate.currentConfiguration.extra as Song;
     _audioPlayerManager = AudioPlayerManager(songUrl: song.source);
     _audioPlayerManager.init();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -76,8 +71,8 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             ClipOval(
               child: Image.network(
                 song.image,
-                width: 140,
-                height: 140,
+                width: 180,
+                height: 180,
                 fit: BoxFit.cover,
               ),
             ),
@@ -87,7 +82,6 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             const SizedBox(height: 32),
             _progressBar(),
             const Spacer(),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -118,6 +112,12 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
     );
   }
 
+  @override
+  void dispose() {
+    _audioPlayerManager.dispose();
+    super.dispose();
+  }
+
   StreamBuilder<DurationState> _progressBar() {
     return StreamBuilder<DurationState>(
       stream: _audioPlayerManager.durationState,
@@ -126,7 +126,18 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
         final progress = durationState?.progress ?? Duration.zero;
         final buffered = durationState?.buffered ?? Duration.zero;
         final total = durationState?.total ?? Duration.zero;
-        return ProgressBar(progress: progress, total: total);
+        return ProgressBar(
+          progress: progress,
+          total: total,
+          buffered: buffered,
+          onSeek: _audioPlayerManager.player.seek,
+          barHeight: 5.0,
+          barCapShape: BarCapShape.round,
+          baseBarColor: Colors.blueGrey,
+          progressBarColor: Colors.blue.shade100,
+          bufferedBarColor: Colors.lightBlueAccent.shade200,
+          thumbColor: Colors.lightBlue,
+        );
       },
     );
   }

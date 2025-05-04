@@ -1,4 +1,4 @@
-import 'package:ecommerce/data/repository/song.repository.dart';
+import 'package:larryle/data/repository/song.repository.dart';
 import 'package:flutter/material.dart';
 import 'ui/navigation/app_navigation.dart';
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Go Router Example',
+      title: 'Larry Le',
       debugShowCheckedModeBanner: false,
       routerConfig: AppNavigation.router,
       theme: ThemeData(

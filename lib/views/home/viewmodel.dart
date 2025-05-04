@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:ecommerce/data/models/song.model.dart';
-import 'package:ecommerce/data/repository/song.repository.dart';
+import 'package:larryle/data/models/song.model.dart';
+import 'package:larryle/data/repository/song.repository.dart';
 
 class MusicAppViewModel {
   StreamController<List<Song>> songStream = StreamController();

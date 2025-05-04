@@ -1,4 +1,4 @@
-import 'package:ecommerce/views/now_playing/playing.dart';
+import 'package:larryle/views/now_playing/playing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '/views/home/home_view.dart';

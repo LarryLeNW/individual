@@ -1,5 +1,5 @@
-import 'package:ecommerce/data/models/song.model.dart';
-import 'package:ecommerce/data/source/song.source.dart';
+import 'package:larryle/data/models/song.model.dart';
+import 'package:larryle/data/source/song.source.dart';
 
 abstract interface class Repository {
   Future<List<Song>?> loadData();

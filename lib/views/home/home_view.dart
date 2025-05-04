@@ -1,5 +1,5 @@
-import 'package:ecommerce/data/models/song.model.dart';
-import 'package:ecommerce/views/home/viewmodel.dart';
+import 'package:larryle/data/models/song.model.dart';
+import 'package:larryle/views/home/viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
