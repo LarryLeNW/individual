@@ -12,17 +12,38 @@ class NowPlayingPage extends StatefulWidget {
   State<NowPlayingPage> createState() => _NowPlayingPageState();
 }
 
-class _NowPlayingPageState extends State<NowPlayingPage> {
+class _NowPlayingPageState extends State<NowPlayingPage>
+    with SingleTickerProviderStateMixin {
   late AudioPlayerManager _audioPlayerManager;
-  bool _isPlaying = false;
+  late AnimationController _rotationController;
+  late Animation<double> _rotationAnimation;
 
   @override
   void initState() {
     super.initState();
     final song =
         GoRouter.of(context).routerDelegate.currentConfiguration.extra as Song;
+
     _audioPlayerManager = AudioPlayerManager(songUrl: song.source);
     _audioPlayerManager.init();
+    _rotationController = AnimationController(
+      duration: const Duration(seconds: 30),
+      vsync: this,
+    )..repeat();
+
+    _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.14159).animate(
+      CurvedAnimation(parent: _rotationController, curve: Curves.linear),
+    );
+
+    _audioPlayerManager.player.playerStateStream.listen((state) {
+      if (state.playing) {
+        if (_rotationController.isAnimating == false) {
+          _rotationController.forward();
+        }
+      } else {
+        _rotationController.stop();
+      }
+    });
   }
 
   @override
@@ -68,12 +89,15 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             const SizedBox(height: 16),
             Text(song.album),
             const SizedBox(height: 20),
-            ClipOval(
-              child: Image.network(
-                song.image,
-                width: 180,
-                height: 180,
-                fit: BoxFit.cover,
+            RotationTransition(
+              turns: _rotationAnimation,
+              child: ClipOval(
+                child: Image.network(
+                  song.image,
+                  width: 180,
+                  height: 180,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -81,7 +105,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
             Text("Artist: ${song.artist}"),
             const SizedBox(height: 32),
             _progressBar(),
-            const Spacer(),
+            // const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,6 +139,7 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void dispose() {
     _audioPlayerManager.dispose();
+    _rotationController.dispose();
     super.dispose();
   }
 
