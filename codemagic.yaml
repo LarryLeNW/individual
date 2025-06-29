@@ -1,5 +1,4 @@
 scripts:
-    - name: Build IPA for device
-      script: flutter build ipa --release
+    - flutter build ipa --release
 artifacts:
     - build/ios/ipa/*.ipa
